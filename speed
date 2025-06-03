@@ -9,7 +9,7 @@ screenGui.ResetOnSpawn = false
 local frame = Instance.new("Frame", screenGui)
 frame.AnchorPoint = Vector2.new(0, 1)
 frame.Position = UDim2.new(0, 10, 1, -10)
-frame.Size = UDim2.new(0, 270, 0, 200) -- Increased height for extra buttons
+frame.Size = UDim2.new(0, 270, 0, 225) -- Increased height for new button
 frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 frame.BackgroundTransparency = 0.2
 frame.BorderSizePixel = 0
@@ -73,7 +73,7 @@ scamButton.MouseButton1Click:Connect(function()
 	ReplicatedStorage.TradeMenuAccept:FireServer()
 end)
 
--- 🚨 NEW BUTTON: MASS TRADE SPAM
+-- SPAM TRADE Button
 local spamButton = Instance.new("TextButton", frame)
 spamButton.Text = "SPAM TRADE 1201x"
 spamButton.Size = UDim2.new(1, -20, 0, 25)
@@ -89,4 +89,22 @@ spamButton.MouseButton1Click:Connect(function()
 			ReplicatedStorage.TradeAccept:FireServer()
 		end)
 	end
+end)
+
+-- LOCK TRADE Button
+local lockButton = Instance.new("TextButton", frame)
+lockButton.Text = "LOCK TRADE"
+lockButton.Size = UDim2.new(1, -20, 0, 25)
+lockButton.Position = UDim2.new(0, 10, 0, 190)
+lockButton.BackgroundColor3 = Color3.fromRGB(120, 60, 220)
+lockButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+lockButton.BorderSizePixel = 0
+lockButton.MouseButton1Click:Connect(function()
+	task.spawn(function()
+		ReplicatedStorage.TradeAccept:FireServer()
+		ReplicatedStorage.TradeMenuCancel:FireServer()
+		ReplicatedStorage.TradeAccept:FireServer()
+		task.wait(0.5)
+		ReplicatedStorage.TradeAccept:FireServer()
+	end)
 end)
